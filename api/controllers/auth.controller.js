@@ -2,7 +2,7 @@ import Role from "../models/Role.js"
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { createSuccess } from "../utils/success.js";
+import { createSuccess }  from "../utils/success.js";
 import { createError } from "../utils/error.js";
 
 export const register = async (req, res, next) => {
@@ -22,6 +22,24 @@ export const register = async (req, res, next) => {
     // return res.status(200).send('User registered successfully!');
 }
 
+export const registerAdmin = async (req, res, next) => {
+    const role = await Role.find({});
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const newUser = new User({
+        firstName : req.body.firstName,
+        lastName : req.body.firstName,
+        username : req.body.username,
+        email : req.body.email,
+        password : hashedPassword,
+        isAdmin : true,
+        roles : role
+    });
+    await newUser.save();
+    // return next.createSuccess(200, 'User registered successfully!');
+    return res.status(200).send('Admin registered successfully!');
+}
+
 export const login =  async (req, res, next) => {
     try {
         const user = await User.findOne({email : req.body.email})
@@ -39,7 +57,7 @@ export const login =  async (req, res, next) => {
             {id: user.id, isAdmin: user.isAdmin, roles: roles},
             process.env.JWT_SECRET
         );
-        res.cookie("access_tiken", token,{httpOnly: true})
+        res.cookie("access_token", token,{httpOnly: true})
         .status(200)
         .json({
             status : 200,
