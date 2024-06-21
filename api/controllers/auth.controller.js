@@ -12,13 +12,13 @@ export const register = async (req, res, next) => {
     const newUser = new User({
         firstName : req.body.firstName,
         lastName : req.body.firstName,
-        username : req.body.username,
+        username : req.body.userName,
         email : req.body.email,
         password : hashedPassword,
         roles : role
     });
     await newUser.save();
-    return next.createSuccess(200, 'User registered successfully!');
+    return res.status(200).json('User registered successfully!');
     // return res.status(200).send('User registered successfully!');
 }
 
