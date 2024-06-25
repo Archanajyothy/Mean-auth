@@ -10,7 +10,7 @@
             <span *ngIf="loginForm.hasError('required', 'password') && loginForm.controls['password'].dirty" class="text-red-500 text-sm">*Password is required</span>
         </div>
         <button [class.disabled] = "loginForm.invalid" class="bg-indigo-500 p-2 rounded mt-3 text-white" 
-        (click)="login()">Submit</button>
+        (click)="login()">Login</button>
         </form>
     <div class="flex justify-center mt-5">
         <span>New to BookMyBook?</span><a routerLink="/register" class="text-indigo-600 ml-2 cursor-pointer">Register Here</a>

@@ -28,7 +28,7 @@
             class="text-red-500 text-sm">*Password didn't matched!</span>
         </div>
         <button [class.disabled] = "registerForm.invalid" class="bg-indigo-500 p-2 rounded mt-3 text-white" 
-        (click)="register($event)">Submit</button>
+        (click)="register($event)">Register</button>
     </form>
     <div class="flex justify-center mt-5">
         <span>Already Have Account?</span><a routerLink="/login"   class="text-indigo-600 ml-2 cursor-pointer">Login Here</a>
