@@ -3,12 +3,12 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { confirmPasswordValidator } from '../../validators/confirm-password.validator';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -32,10 +32,11 @@ ngOnInit(): void{
   });
 }
 
-register(){
+register(event: any){
   this.authService.registerService(this.registerForm.value)
   .subscribe({
-    next: (rse)=>{
+    next: (res)=>{
+      event.preventDefault();
       alert("User Created!");
       this.registerForm.reset();
       this.router.navigate(['login']);
