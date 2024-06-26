@@ -33,9 +33,9 @@ export  default class LoginComponent {
         this.router.navigate(['home']);
         this.loginForm.reset();
       },
-      error: (error)=>{
-        console.log(error);
-        
+      error: (err)=>{
+        console.log(err);
+        alert(err.error);
       }
     })
     

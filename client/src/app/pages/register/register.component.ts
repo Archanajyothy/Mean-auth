@@ -32,11 +32,10 @@ ngOnInit(): void{
   });
 }
 
-register(event: any){
+register(){
   this.authService.registerService(this.registerForm.value)
   .subscribe({
     next: (res)=>{
-      event.preventDefault();
       alert("User Created!");
       this.registerForm.reset();
       this.router.navigate(['login']);
