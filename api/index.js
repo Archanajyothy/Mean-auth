@@ -5,7 +5,9 @@ import cors from 'cors';
 import roleRoute from './routes/role.js';
 import authRoute from './routes/auth.js';
 import userRoute from './routes/user.js';
+import bookRoute from './routes/book.js';
 import cookieParser from 'cookie-parser';
+import { seedBooksData } from './seed.js';
 
 const app = express();
 dotenv.config();
@@ -21,6 +23,7 @@ app.use(cors({
 app.use('/api/role',roleRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
+app.use('/api/book', bookRoute);
 
 //Response handler middleware
 app.use((obj, req, res, next) => {
@@ -39,6 +42,9 @@ app.use((obj, req, res, next) => {
 const connectMongoDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL);
+        if(process.argv.includes("--seed")){
+            await seedBooksData();
+        }
         console.log("Connected to database!");
     } catch (error) {
         throw error;
