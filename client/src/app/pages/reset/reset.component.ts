@@ -37,7 +37,7 @@ ngOnInit(): void {
 reset(){
   let  resetObj = {
     token : this.token,
-    password : this.resetForm.value.password
+    newPassword : this.resetForm.value.password
   }
   console.log(resetObj, 'reset');
   

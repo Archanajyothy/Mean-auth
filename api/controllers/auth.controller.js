@@ -130,9 +130,14 @@ export const sendEmail = async (req, res, next) => {
     })
 }
 
-export const resetPassword = (res, req, next) => {
+export const resetPassword = (req, res, next) => {
+    console.log(req.body,'body');
     const token = req.body.token;
     const newPassword = req.body.newPassword;
+
+    if (!token || !newPassword) {
+        return next(createError(400, "Token and new password are required."));
+    }
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, data)=>{
         if(err){
