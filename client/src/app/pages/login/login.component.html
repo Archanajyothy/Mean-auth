@@ -6,8 +6,26 @@
             <span *ngIf="loginForm.hasError('required', 'email') && loginForm.controls['email'].dirty" class="text-red-500 text-sm">*Email is required</span>
         </div>
         <div class="flex flex-col mt-4 mb-1">
-            <input formControlName="password" type="text" placeholder="Password" class="p-2 border border-gray-300 rounded">
-            <span *ngIf="loginForm.hasError('required', 'password') && loginForm.controls['password'].dirty" class="text-red-500 text-sm">*Password is required</span>
+            <div class="relative">
+                <input 
+                  formControlName="password" 
+                  [type]="showPass ? 'text' : 'password'" 
+                  placeholder="Password" 
+                  class="p-2 pr-10 border border-gray-300 rounded w-full"
+                >
+                <i 
+                  *ngIf="!showPass" 
+                  class="fa-regular fa-eye absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                  (click)="togglePass()"
+                ></i>
+                <i 
+                  *ngIf="showPass" 
+                  class="fa-regular fa-eye-slash absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                  (click)="togglePass()"
+                ></i>
+              </div>
+            <span *ngIf="loginForm.hasError('required', 'password') && loginForm.controls['password'].dirty" 
+            class="text-red-500 text-sm">*Password is required</span>
         </div>
         <button [class.disabled] = "loginForm.invalid" class="bg-indigo-500 p-2 rounded mt-3 text-white" 
         (click)="login()">Login</button>

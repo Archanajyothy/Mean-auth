@@ -16,6 +16,7 @@ export  default class LoginComponent {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
   router = inject(Router);
+  showPass:boolean = false;
   
   loginForm !: FormGroup;
   ngOnInit(): void{
@@ -30,6 +31,10 @@ export  default class LoginComponent {
     .subscribe({
       next: (res) => {
         alert("Login is success!");
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem("user_id", res.data._id);
+        }
+        this.authService.isLoggedIn$.next(true);
         this.router.navigate(['home']);
         this.loginForm.reset();
       },
@@ -39,5 +44,9 @@ export  default class LoginComponent {
       }
     })
     
+  }
+
+  togglePass(){
+    this.showPass = !this.showPass;
   }
 }
